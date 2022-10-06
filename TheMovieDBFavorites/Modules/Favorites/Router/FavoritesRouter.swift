@@ -14,7 +14,6 @@ protocol FavoritesRouterProtocol: AnyObject {
 
 enum FavoritesRoutes {
     case detail(movieId: Int?)
-    case search(text: String?)
 }
 
 final class FavoritesRouter {
@@ -43,24 +42,6 @@ extension FavoritesRouter: FavoritesRouterProtocol {
             let detailVC = MovieDetailRouter.createModule()
             detailVC.movieId = movieId
             viewController?.navigationController?.pushViewController(detailVC, animated: true)
-            
-        case .search(let text):
-            guard let text = text,
-                  text.count > 2 else { return }
-            let searchVC = SearchRouter.createModule()
-            searchVC.searchText = text
-            
-            if let topVC = viewController?.navigationController?.topViewController {
-                searchVC.view.frame = topVC.view.bounds
-                
-                if topVC.children.count > 0 {
-                    let viewControllers: [UIViewController] = topVC.children
-                    viewControllers.last?.removeFromParent()
-                    viewControllers.last?.view.removeFromSuperview()
-                }
-                viewController?.navigationController?.topViewController?.addChild(searchVC)
-                viewController?.navigationController?.topViewController?.view.addSubview(searchVC.view)
-            }
         }
     }
 }

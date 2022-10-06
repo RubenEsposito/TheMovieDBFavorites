@@ -13,7 +13,6 @@ protocol FavoritesPresenterProtocol: AnyObject {
     func numberOfItems() -> Int
     func movie(_ index: Int) -> FavoriteMovie?
     func didSelectRowAt(index: Int)
-    func searchMovie(searchText: String)
 }
 
 final class FavoritesPresenter: FavoritesPresenterProtocol {
@@ -36,11 +35,11 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     
     func viewDidLoad() {
         view?.setupTableView()
-        fetchMovies()
     }
     
     func viewWillAppear() {
         view?.setUpView()
+        fetchMovies()
     }
     
     func numberOfItems() -> Int {
@@ -48,16 +47,12 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     }
     
     func movie(_ index: Int) -> FavoriteMovie? {
-        return movies[index]
+        return movies[safe: index]
     }
     
     func didSelectRowAt(index: Int) {
         guard let movie = movie(index) else { return }
         router.navigate(.detail(movieId: movie.id))
-    }
-    
-    func searchMovie(searchText: String) {
-        router.navigate(.search(text: searchText))
     }
     
     private func fetchMovies() {
@@ -69,6 +64,7 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
 extension FavoritesPresenter: FavoritesInteractorOutputProtocol {
     
     func fetchFavoriteMovies(result: [FavoriteMovie]) {
+        view?.hideLoadingView()
         self.movies = result
         view?.reloadData()
     }

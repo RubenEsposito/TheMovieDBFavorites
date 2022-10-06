@@ -7,22 +7,127 @@
 
 import XCTest
 @testable import TheMovieDBFavorites
+@testable import Alamofire
 
-final class TheMovieDBFavoritesTests: XCTestCase {
+class FavoriteModuleTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    var presenter: FavoritesPresenter!
+    var view: MockFavoritesViewController!
+    var interactor: MockFavoritesInteractor!
+    var router: MockFavoritesRouter!
+    
+    override func setUp() {
+        super.setUp()
+        view = .init()
+        interactor = .init()
+        router = .init()
+        presenter = .init(view: view, router: router, interactor: interactor)
+    }
+    
+    override func tearDown() {
+        view = nil
+        presenter = nil
+        interactor = nil
+        router = nil
+    }
+    
+    // MARK: - Test Methods
+    func test_viewDidLoad_Invoke_SetUp_Views() {
+        presenter.viewDidLoad()
+        XCTAssertTrue(view.isCalledSetupTableView)
+    }
+    
+    func test_viewWillAppear_Invoke_SetUp_Views() {
+        presenter.viewWillAppear()
+        XCTAssertTrue(view.isCalledSetupView)
+        XCTAssertTrue(view.isCalledShowLoading)
+    }
+    
+    func test_view_methods_with_no_data() {
+        presenter.viewWillAppear()
+        XCTAssertTrue(interactor.isFetchFavoriteMoviesCalled)
+        presenter.fetchFavoriteMovies(result: [])
+
+        XCTAssertTrue(view.isCalledReloadData)
+        XCTAssertTrue(view.isCalledHideLoading)
+
+        XCTAssertEqual(presenter.numberOfItems(), 0)
+        XCTAssertEqual(presenter.movie(0)?.id, nil)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func test_view_methods_with_data() {
+        presenter.viewWillAppear()
+        XCTAssertTrue(interactor.isFetchFavoriteMoviesCalled)
+        presenter.fetchFavoriteMovies(result: createFavoritesResponse())
+        
+        XCTAssertTrue(view.isCalledReloadData)
+        XCTAssertTrue(view.isCalledHideLoading)
+        
+        XCTAssertEqual(presenter.movie(0)?.id, 1)
+        XCTAssertEqual(presenter.numberOfItems(), 1)
     }
+    
+    // MARK: - Private Methods
+    private func createFavoritesResponse() -> [FavoriteMovie] {
+        [
+            .init(backdrop_path: "Image 1", id: 1, overview: "Desc 1", release_date: "Date 1", title: "Title 1")
+        ]
+    }
+    
+}
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+// MARK: - Mock Classes
+final class MockFavoritesViewController: FavoritesViewControllerProtocol {
+    
+    var isCalledReloadData = false
+    var isCalledShowLoading = false
+    var isCalledHideLoading = false
+    var isCalledSetupCollectionView = false
+    var isCalledSetupTableView = false
+    var isCalledSetupView = false
+    
+    func reloadData() {
+        isCalledReloadData = true
+    }
+    
+    func showLoadingView() {
+        isCalledShowLoading = true
+    }
+    
+    func hideLoadingView() {
+        isCalledHideLoading = true
+    }
+    
+    func setupCollectionView() {
+        isCalledSetupCollectionView = true
+    }
+    
+    func setupTableView() {
+        isCalledSetupTableView = true
+    }
+    
+    func setUpView() {
+        isCalledSetupView = true
+    }
+}
+
+final class MockFavoritesInteractor: FavoritesInteractorProtocol {
+    
+    var isFetchFavoriteMoviesCalled = false
+    
+    func fetchFavoriteMovies() {
+        isFetchFavoriteMoviesCalled = true
+    }
+}
+
+final class MockFavoritesRouter: FavoritesRouterProtocol {
+    
+    var isRouteDetail = false
+    
+    func navigate(_ route: FavoritesRoutes) {
+        switch route {
+        case .detail(_):
+            isRouteDetail = true
+        }
     }
 }

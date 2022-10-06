@@ -13,6 +13,7 @@ protocol LocalStorageManagerProtocol {
     func saveFavoriteMovie(movie: FavoriteMovie)
     func getMovie(withId movieId: Int) -> FavoriteMovie?
     func removeMovie(withId movieId: Int)
+    func removeFavoriteMovies()
     func getFavoriteMovies() -> [FavoriteMovie]
 }
 
@@ -42,6 +43,11 @@ final class LocalStorageManager: LocalStorageManagerProtocol {
     
     func getFavoriteMovies() -> [FavoriteMovie] {
         return getSavedFavoriteMovies()
+    }
+    
+    func removeFavoriteMovies() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: favoriteMoviesKey)
     }
     
     private func getSavedFavoriteMovies() -> [FavoriteMovie] {

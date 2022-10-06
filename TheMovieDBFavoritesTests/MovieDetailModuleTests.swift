@@ -25,6 +25,8 @@ class MovieDetailModuleTests: XCTestCase {
     }
     
     override func tearDown() {
+        interactor.removeFavoriteMovies()
+        
         view = nil
         presenter = nil
         interactor = nil
@@ -96,13 +98,13 @@ class MovieDetailModuleTests: XCTestCase {
         presenter.fetchMovieDetail(result: .success(createMovieDetailResponse()))
         presenter.addFavoritesButtonTapped(movieID: 1)
         XCTAssertTrue(view.isCalledSetFavoritesButton)
-        XCTAssertEqual(UserDefaults.standard.integer(forKey: "1"), 1) /// Adds the user defaults, because of the favorite status is false by default
+        XCTAssertTrue(interactor.isFavorite(1))
         presenter.addFavoritesButtonTapped(movieID: 1)
         XCTAssertTrue(view.isCalledSetFavoritesButton)
-        XCTAssertNotEqual(UserDefaults.standard.integer(forKey: "1"), 1) /// Removes the value at the second time. Like user tap again and unfollow movie cause the removing from favorites
+        XCTAssertFalse(interactor.isFavorite(1))/// Removes the value at the second time. Like user tap again and unfollow movie cause the removing from favorites
         presenter.addFavoritesButtonTapped(movieID: 1)
         XCTAssertTrue(view.isCalledSetFavoritesButton)
-        XCTAssertEqual(UserDefaults.standard.integer(forKey: "1"), 1)
+        XCTAssertTrue(interactor.isFavorite(1))
     }
 
 // MARK: - Private Methods
@@ -222,6 +224,23 @@ final class MockMovieDetailViewController: MovieDetailViewControllerProtocol {
 final class MockMovieDetailInteractor: MovieDetailInteractorProtocol {
     
     var isCalledFetchMovieDetail = false
+    var localStorageManager: LocalStorageManagerProtocol = LocalStorageManager()
+    
+    func saveFavorite(_ movie: FavoriteMovie) {
+        localStorageManager.saveFavoriteMovie(movie: movie)
+    }
+    
+    func removeFavorite(_ movieId: Int) {
+        localStorageManager.removeMovie(withId: movieId)
+    }
+    
+    func isFavorite(_ movieId: Int) -> Bool {
+        return localStorageManager.getMovie(withId: movieId) != nil
+    }
+    
+    func removeFavoriteMovies() {
+        localStorageManager.removeFavoriteMovies()
+    }
     
     func fetchMovieDetail(_ movieId: Int) {
         isCalledFetchMovieDetail = true
