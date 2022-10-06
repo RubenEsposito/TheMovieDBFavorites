@@ -8,25 +8,22 @@
 import Foundation
 
 protocol FavoritesInteractorProtocol: AnyObject {
-    func fetchPopularMovies()
+    func fetchFavoriteMovies()
 }
 
 protocol FavoritesInteractorOutputProtocol: AnyObject {
-    func fetchPopularMovies(result: MovieListResult)
+    func fetchFavoriteMovies(result: [FavoriteMovie])
 }
 
-fileprivate var movieService: MovieServiceProtocol = MovieService()
-
+fileprivate var localStorageManager: LocalStorageManagerProtocol = LocalStorageManager()
 final class FavoritesInteractor {
     var output: FavoritesInteractorOutputProtocol?
 }
 
 extension FavoritesInteractor: FavoritesInteractorProtocol {
     
-    func fetchPopularMovies() {
-        movieService.fetchListPopularMovies { [weak self] result in
-            guard let self = self else { return }
-            self.output?.fetchPopularMovies(result: result)
-        }
+    func fetchFavoriteMovies() {
+        let movies = localStorageManager.getFavoriteMovies()
+        self.output?.fetchFavoriteMovies(result: movies)
     }
 }

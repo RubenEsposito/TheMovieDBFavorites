@@ -70,9 +70,11 @@ final class MovieDetailPresenter: MovieDetailPresenterProtocol {
     func addFavoritesButtonTapped(movieID: Int) {
         if let isFavorite = movieDetail?.favoriteStatus {
             if !isFavorite {
-                UserDefaults.standard.set(movieID, forKey: "\(movieID)")
+                if let movieDetail {
+                    interactor.saveFavorite(movieDetail.favoriteRepresentation())
+                }
             } else {
-                UserDefaults.standard.removeObject(forKey: "\(movieID)")
+                interactor.removeFavorite(movieID)
             }
         }
         
@@ -100,8 +102,7 @@ extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
             self.movieDetail = movieDetail
             
             if let movieId = movieDetail.id {
-                let storedMovieId = UserDefaults.standard.integer(forKey: "\(movieId)")
-                if storedMovieId == movieDetail.id {
+                if interactor.isFavorite(movieId) {
                     self.movieDetail?.favoriteStatus = true
                 }
             }

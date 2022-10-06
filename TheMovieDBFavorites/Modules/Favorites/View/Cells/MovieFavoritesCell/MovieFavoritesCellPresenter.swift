@@ -14,9 +14,9 @@ protocol MovieFavoritesCellPresenterProtocol: AnyObject {
 final class MovieFavoritesCellPresenter {
     
     weak var view: MovieFavoritesCellProtocol?
-    private let movie: ListResult
+    private let movie: FavoriteMovie
     
-    init(view: MovieFavoritesCellProtocol?, movie: ListResult) {
+    init(view: MovieFavoritesCellProtocol?, movie: FavoriteMovie) {
         self.view = view
         self.movie = movie
     }

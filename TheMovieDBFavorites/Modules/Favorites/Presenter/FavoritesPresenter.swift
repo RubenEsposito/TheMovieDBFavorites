@@ -11,7 +11,7 @@ protocol FavoritesPresenterProtocol: AnyObject {
     func viewDidLoad()
     func viewWillAppear()
     func numberOfItems() -> Int
-    func movie(_ index: Int) -> ListResult?
+    func movie(_ index: Int) -> FavoriteMovie?
     func didSelectRowAt(index: Int)
     func searchMovie(searchText: String)
 }
@@ -22,7 +22,7 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     let router: FavoritesRouterProtocol!
     let interactor: FavoritesInteractorProtocol!
     
-    private var movies: [ListResult] = []
+    private var movies: [FavoriteMovie] = []
     
     init(
         view: FavoritesViewControllerProtocol,
@@ -47,8 +47,8 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
         return movies.count
     }
     
-    func movie(_ index: Int) -> ListResult? {
-        return movies[safe: index]
+    func movie(_ index: Int) -> FavoriteMovie? {
+        return movies[index]
     }
     
     func didSelectRowAt(index: Int) {
@@ -62,23 +62,14 @@ final class FavoritesPresenter: FavoritesPresenterProtocol {
     
     private func fetchMovies() {
         view?.showLoadingView()
-        interactor.fetchPopularMovies()
+        interactor.fetchFavoriteMovies()
     }
 }
 
 extension FavoritesPresenter: FavoritesInteractorOutputProtocol {
     
-    func fetchPopularMovies(result: MovieListResult) {
-        view?.hideLoadingView()
-        
-        switch result {
-        case .success(let moviesResult):
-            if let movies = moviesResult.results {
-                self.movies = movies
-                view?.reloadData()
-            }
-        case .failure(let error):
-            print(error)
-        }
+    func fetchFavoriteMovies(result: [FavoriteMovie]) {
+        self.movies = result
+        view?.reloadData()
     }
 }
