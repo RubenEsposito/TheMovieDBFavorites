@@ -1,4 +1,4 @@
-# WembleyTheMovieDB
+# Wembley - TheMovieDBFavorites
 
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
@@ -84,6 +84,8 @@ To get a local copy up and running follow these simple steps:
 ### Installation
 
 The project is prepared so everything you need to do is clone the repository, open the xcodeproj and run it.
+
+IMPORTANT: Sometimes you could receive an error due to Swift Package Manager issues (typically a "Couldn't get revision" error). If it happens to you, please in Xcode click File > Packages -> Reset Package Caches from the menu and then build again.
 
 ### Tests
 
