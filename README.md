@@ -28,7 +28,7 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<h3 align="center">WembleyTheMovieDB</h3>
+<h3 align="center">Wembley - TheMovieDB</h3>
 
   <p align="center">
     Example app showing MovieDB results using VIPER architecture.
@@ -66,6 +66,16 @@
 ## About The Project
 
 This project is an exercise for the interview process at Wembley Studios. The aim of this code is to show my personal expertise on several aspects of iOS development.
+
+Exercise instructions:
+
+We need to create an app so that our employees can manage their favorite movies. 🎬 For this we will use the public API of The Movie DB (https://developers.themoviedb.org/3/getting-started/introduction).
+  
+The application must have a VIPER architecture and a main screen with two tabs. In the first tab we will show the user a list of popular movies (https://developers.themoviedb.org/3/movies/get-popular-movies)
+
+In addition to a SearchBar in case we want to do a custom search. (https://developers.themoviedb.org/3/search/search-movies).
+
+Each movie will also have the option to mark as a favorite. Therefore, in the second Tab, the user will be able to view the list of movies that have been marked as favorites.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
