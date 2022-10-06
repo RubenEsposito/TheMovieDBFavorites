@@ -19,15 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         
         let listVC = ListRouter.createModule()
-        let navigationController = UINavigationController(rootViewController: listVC)
-        let listVC2 = ListRouter.createModule()
-        let navigationController2 = UINavigationController(rootViewController: listVC2)
+        let listNavVC = UINavigationController(rootViewController: listVC)
+        let favoritesVC = FavoritesRouter.createModule()
+        let favoritesNavVC = UINavigationController(rootViewController: favoritesVC)
         
         let submodules = Tabs(
-            popular: navigationController,
-            favorites: navigationController2
+            popular: listNavVC,
+            favorites: favoritesNavVC
         )
-        let tabBarController = TabBarModuleBuilder.build(usingSubmodules: submodules)
+        let tabBarController = TabBarRouter.createModule(usingSubmodules: submodules)
         
         window.makeKeyAndVisible()
         window.rootViewController = tabBarController

@@ -5,19 +5,22 @@
 //  Created by Ruben Exposito Marin on 6/10/22.
 //
 
+import Foundation
 import UIKit
 
-class TabBarRouter {
+final class TabBarRouter {
     
-    var viewController: UIViewController
+    weak var viewController: UIViewController?
     
     typealias Submodules = (
         popular: UIViewController,
         favorites: UIViewController
     )
     
-    init(viewController: UIViewController) {
-        self.viewController = viewController
+    static func createModule(usingSubmodules submodules: TabBarRouter.Submodules) -> UITabBarController {
+        let tabs = TabBarRouter.tabs(usingSubmodules: submodules)
+        let tabBarController = TabBarViewController(tabs: tabs)
+        return tabBarController
     }
 }
 

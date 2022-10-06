@@ -80,7 +80,7 @@ class ListModuleTests: XCTestCase {
     
     func test_navigate_search_view_with_search_view_typing() {
         presenter.viewDidLoad()
-        presenter.searchMovie(searchText: "Her şey için teşekkürler Kerim Hocam :)")
+        presenter.searchMovie(searchText: "Rain")
         XCTAssertTrue(router.isRouteSearch)
     }
     

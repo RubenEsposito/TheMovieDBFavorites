@@ -16,13 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let listVC = ListRouter.createModule()
-        let navigationController = UINavigationController(rootViewController: listVC)
+        let listNavVC = UINavigationController(rootViewController: listVC)
+        let favoritesVC = FavoritesRouter.createModule()
+        let favoritesNavVC = UINavigationController(rootViewController: favoritesVC)
         
         let submodules = Tabs(
-            popular: navigationController,
-            favorites: navigationController
+            popular: listNavVC,
+            favorites: favoritesNavVC
         )
-        let tabBarController = TabBarModuleBuilder.build(usingSubmodules: submodules)
+        let tabBarController = TabBarRouter.createModule(usingSubmodules: submodules)
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
