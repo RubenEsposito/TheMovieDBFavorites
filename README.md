@@ -144,7 +144,7 @@ Distributed under the GNU General Public License v3.0. See `LICENSE` for more in
 
 Rubén Expósito Marín - ruben@lightonapps.com
 
-Project Link: [https://github.com/RubenEsposito/WembleyTheMovieDB](https://github.com/RubenEsposito/WembleyTheMovieDB)
+Project Link: [https://github.com/RubenEsposito/TheMovieDBFavorites](https://github.com/RubenEsposito/TheMovieDBFavorites)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -152,9 +152,9 @@ Project Link: [https://github.com/RubenEsposito/WembleyTheMovieDB](https://githu
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/RubenEsposito/WembleyTheMovieDB.svg?style=for-the-badge
-[contributors-url]: https://github.com/RubenEsposito/WembleyTheMovieDB/graphs/contributors
-[license-shield]: https://img.shields.io/github/license/RubenEsposito/WembleyTheMovieDB.svg?style=for-the-badge
-[license-url]: https://github.com/RubenEsposito/WembleyTheMovieDB/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/RubenEsposito/TheMovieDBFavorites.svg?style=for-the-badge
+[contributors-url]: https://github.com/RubenEsposito/TheMovieDBFavorites/graphs/contributors
+[license-shield]: https://img.shields.io/github/license/RubenEsposito/TheMovieDBFavorites.svg?style=for-the-badge
+[license-url]: https://github.com/RubenEsposito/TheMovieDBFavorites/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/rubenexposito
