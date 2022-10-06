@@ -57,7 +57,6 @@
     <li><a href="#decisions-log">Decisions Log</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -122,7 +121,7 @@ On the starting screen you will see the information from the popular movies. If 
 <!-- LICENSE -->
 ## License
 
-Distributed under the GNU General Public License v3.0. See `LICENSE.txt` for more information.
+Distributed under the GNU General Public License v3.0. See `LICENSE` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -134,15 +133,6 @@ Distributed under the GNU General Public License v3.0. See `LICENSE.txt` for mor
 Rubén Expósito Marín - ruben@lightonapps.com
 
 Project Link: [https://github.com/RubenEsposito/WembleyTheMovieDB](https://github.com/RubenEsposito/WembleyTheMovieDB)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* You can check the exercise specs from this app [here](https://gitlab.com/carandahe/ems-demo-project).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
